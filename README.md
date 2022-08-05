@@ -1,43 +1,42 @@
-  # CODERDBC 
+# CODERDBC 
   
-  ## What is it
+Coderdbc is a CLI utility for generating C code from DBC CAN matrix files
 
-  CLI utilty for generating C code from dbc (CAN matrix) files
+### Features
+- ***Pack*** and ***Unpack*** functions for conversion signals to CAN payload raw data and vice verse
+- ***Node based*** Receive function _(each node (ECU) has its own ***Receive*** function according to its DBC configuration)_
+- Automation on monitoring functions: CRC, counter and missing tests
+- Optional source code generation _(the generation of readonly and configuration files can be avoided)_
+- Flexible setup via driver configuration _(see comments in source code for details)_
 
-  ## Build and run
+## Build and run
 
-  This manual works on Ubuntu 20.04 and Windows 10. You need to ensure that your system has
-  C++ compile and builing toolchain (**c++17**)
+For building project you need to have cmake and c++ development toolkit in your system
+1 download source code:
+```sh
+git clone https://github.com/astand/c-coderdbc.git coderdbc
+```
+Go to the source code directory:
+```sh
+cd coderdbc
+```
+Run cmake configuration to 'build' directory:
+```sh
+cmake -S src -B build
+```
+Run cmake build:
+```sh
+--build build --config release
+```
+Go to the build directory and run:
+```sh
+cd build
+./coderdbc --help
+```
 
-  To build coderdbc you need to make next steps:
-  
-  1 install cmake
-  
-  2 download source code:
+Help information with main instructions about using the tool will be printed
 
-  `git clone https://github.com/astand/c-coderdbc.git coderdbc`
-  
-  3 goto source code directory:
-
-  `cd coderdbc`
-
-  4 run cmake configuration to 'build' directory:
-
-  `cmake -S src -B build`
-
-  5 run cmake build:
-
-  `cmake --build build --config release`
-
-  6 goto to build directory and run:
-
-  `cd build`
-
-  `./coderdbc`
-
-  Call without argument will print instruction how to pass DBC file for generation
-
-  ## Driver functionality description
+## Driver functionality description
 
   The full pack of source code (both generated and manually edited) will be looked this
   (presuming that the dbc driver name is "ecudb"):
@@ -87,7 +86,7 @@
 
     *inc - file location have to be added to project include path.
 
-  ## "-nodeutils" option
+## "-nodeutils" option
 
   If your matrix has strict routing setup, where each CAN device (node) has defined collection 
   of TX frames as well as defined collection of RX frames the "-nodeutils" option may be used.
